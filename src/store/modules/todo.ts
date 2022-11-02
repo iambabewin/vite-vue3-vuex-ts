@@ -7,7 +7,7 @@ const initialState = {
     data: [
         {
             id: 1,
-            title: 'vue3+ts',
+            title: '',
             completed: false
         }
     ] as Todo[]
@@ -33,7 +33,7 @@ export default {
     // https://vuex.vuejs.org/zh/guide/actions.html
     actions: {
         initTodo({ commit }) {
-            http.get<Todo>('https://jsonplaceholder.typicode.com/todos/1')
+            http.get<Todo>('/api/todos/1')
                 .then(res => {
                     console.log(res.data)
                     commit('initTodo', [res.data])
