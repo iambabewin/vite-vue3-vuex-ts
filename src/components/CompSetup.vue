@@ -4,9 +4,11 @@
     <div @click="$store.commit('add')">
        counter click： {{ counter }}
     </div>
-    <div>{{ doubleCounter }}</div>
-    <input type="text" v-model="todoName" @keydown.enter="addTodo(newTodo(todoName))">
-    <div v-for="item in items" :key="item.id">
+    <div>doubleCounter：{{ doubleCounter }}</div>
+
+    addTodo：<input type="text" v-model="todoName" @keydown.enter="addTodo(newTodo(todoName))">
+    <div>Todolist:</div>
+    <div v-for="item in todos" :key="item.id">
         {{ item.name }}
     </div>
 </template>
@@ -31,25 +33,27 @@ defineProps({
     }
 })
 
-const items = ref([] as Todo[]);
-items.value.push({ id: 1, name: 'vue3', completed: false });
+const todos = computed(()=>store.state.todos?.data)
+const todoName = ref('');
+
+// todos.value.push({ id: 1, name: 'vue3', completed: false });
+// 声明初始值的另外一种方式 使用reactive, 则引用时需要使用items.todos
 // const items = reactive({
-//     items: [] as Todo[],
+//     todos: [] as Todo[],
 //     todoName: ''
 // })
-// items.items.push({ id: 1, name: 'vue3', completed: false });
+// items.todos.push({ id: 1, name: 'vue3', completed: false });
 
-const todoName = ref('');
 const newTodo = (todoName: string): Todo => {
     return {
-        id: items.value.length + 1,
+        id: todos.value!.length + 1,
         name: todoName,
         completed: false
     }
 }
 
 const addTodo = (todo: Todo): void => {
-    items.value.push(todo);
+    todos.value!.push(todo);
     todoName.value = ''
 }
 

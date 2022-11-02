@@ -7,7 +7,8 @@
     </div>
     <div>{{ doubleCounter }}</div>
     <input type="text" v-model="todoName" @keydown.enter="addTodo(newTodo(todoName))">
-    <div v-for="item in items" :key="item.id">
+    <div>Todolist:</div>
+    <div v-for="item in todos" :key="item.id">
         {{ item.name }}
     </div>
 </template>
@@ -27,12 +28,12 @@ export default defineComponent({
     data() {
         return {
             // counter: 1,
-            items: [] as Todo[],
+            todos: [] as Todo[],
             todoName:''
         }
     },
     created() {
-        this.items.push({ id: 1, name: 'vue3', completed: false });
+        this.todos.push({ id: 1, name: 'vue3', completed: false });
     },
     computed: {
         doubleCounter(): number {
@@ -42,13 +43,13 @@ export default defineComponent({
     methods: {
         newTodo(todoName:string):Todo{
             return {
-                id:this.items.length+1,
+                id:this.todos.length+1,
                 name:todoName,
                 completed:false
             }
         },
         addTodo(todo:Todo):void{
-            this.items.push(todo);
+            this.todos.push(todo);
             this.todoName=''
         }
     },
