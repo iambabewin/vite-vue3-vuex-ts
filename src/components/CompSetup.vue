@@ -9,7 +9,7 @@
     addTodo：<input type="text" v-model="todoName" @keydown.enter="addTodo(newTodo(todoName))">
     <div>Todolist:</div>
     <div v-for="item in todos" :key="item.id">
-        {{ item.name }}
+        {{ item.title }}
     </div>
 </template>
 
@@ -35,6 +35,8 @@ defineProps({
 
 const todos = computed(()=>store.state.todos?.data)
 const todoName = ref('');
+// todos初始化
+store.dispatch('todos/initTodo');
 
 // todos.value.push({ id: 1, name: 'vue3', completed: false });
 // 声明初始值的另外一种方式 使用reactive, 则引用时需要使用items.todos
@@ -47,7 +49,7 @@ const todoName = ref('');
 const newTodo = (todoName: string): Todo => {
     return {
         id: todos.value!.length + 1,
-        name: todoName,
+        title: todoName,
         completed: false
     }
 }

@@ -9,7 +9,7 @@
     <input type="text" v-model="todoName" @keydown.enter="addTodo(newTodo(todoName))">
     <div>Todolist:</div>
     <div v-for="item in todos" :key="item.id">
-        {{ item.name }}
+        {{ item.title }}
     </div>
 </template>
 
@@ -33,7 +33,7 @@ export default defineComponent({
         }
     },
     created() {
-        this.todos.push({ id: 1, name: 'vue3', completed: false });
+        this.todos.push({ id: 1, title: 'vue3', completed: false });
     },
     computed: {
         doubleCounter(): number {
@@ -44,7 +44,7 @@ export default defineComponent({
         newTodo(todoName:string):Todo{
             return {
                 id:this.todos.length+1,
-                name:todoName,
+                title:todoName,
                 completed:false
             }
         },
